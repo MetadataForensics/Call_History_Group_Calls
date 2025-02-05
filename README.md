@@ -5,7 +5,7 @@ It is our hope these SQL queries aid in the accurate parsing and analysis of cal
 
 # Where to Use:
 
-- The SQL queries will work in most SQLite database viewers able to execute SQL queries. 
+- The SQL queries will work in most SQLite database viewers able to execute SQL queries. Note: due to column name changes with iOS updates, one CallHistory.storedata query will work while the other will not.
 - The callHistoryGroupCall.xml file is a Magnet AXIOM Custom Artifact, which can be added to Magnet AXIOM Process through Tools > Manage custom artifacts > ADD NEW CUSTOM ARTIFACT. Once added, the artifacts are named Call History - Group Call v3, Call History - Group Call v4, and Call History interactionC - Group Call.
 
 # Artifact Examples:
@@ -26,4 +26,4 @@ This data pertains to Apple devices recorded within the CallHistory.storedata an
 At the time of testing, these queries supported iOS 16, 17, and 18.
 
 # More Details
-Additional details published within 'Hello! Who is on the Line?' at [URL](https://metadataperspective.com/2025/01/30/beyond-the-logs-using-the-health-app-to-uncover-device-model-and-os-history/).
+Additional details published within 'Hello! Who is on the Line?' at [URL](https://metadataperspective.com/2025/02/05/hello-who-is-on-the-line/).
