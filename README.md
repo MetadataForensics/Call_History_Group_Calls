@@ -7,6 +7,7 @@ It is our hope these SQL queries aid in the accurate parsing and analysis of cal
 
 - The SQL queries will work in most SQLite database viewers able to execute SQL queries. Note: due to column name changes with iOS updates, one CallHistory.storedata query will work while the other will not.
 - The callHistoryGroupCall.xml file is a Magnet AXIOM Custom Artifact, which can be added to Magnet AXIOM Process through Tools > Manage custom artifacts > ADD NEW CUSTOM ARTIFACT. Once added, the artifacts are named Call History - Group Call v3, Call History - Group Call v4, and Call History interactionC - Group Call.
+- **Update!** The artifact work herein is now available within iLEAPP as well, available [here](https://github.com/abrignoni/iLEAPP). Thanks to all on the LEAPPs team for the review and approval of these artifacts! As always, we remain a proud support of the LEAPPS project.
 
 # Artifact Examples:
 Call History - Group Call:
