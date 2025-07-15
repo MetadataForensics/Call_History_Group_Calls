@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Artifacts version="1.0">
+    <Artifact type="SqliteArtifact" name="Call History - Group Call v3" version="1.0">
+        <Source type="FileName">CallHistory.storedata</Source>
+        <Query>
+            Select 
+            datetime("ZCALLRECORD"."ZDATE" + 978307200, 'UNIXEPOCH') As "Column1", 
+            Case 
+                When "ZCALLRECORD"."ZDATE" = ("ZCALLRECORD"."ZDATE" + "ZCALLRECORD"."ZDURATION") Then NULL
+                Else datetime(("ZCALLRECORD"."ZDATE" + "ZCALLRECORD"."ZDURATION")+ 978307200, 'UNIXEPOCH') End As "Column2", 
+            CASE 
+            WHEN "ZCALLRECORD"."ZNAME" IS NULL THEN "No Display Name"
+            ELSE ZNAME 
+            END AS "Column3", 
+            GROUP_CONCAT(ZHANDLE.ZVALUE, ', ') AS "Column4",
+            CASE 
+               WHEN COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) = 1 
+               THEN 'Direct Call' 
+               WHEN COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) > 1 
+               THEN 'Group Call - ' || COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) || ' other parties'
+            END AS "Column5",
+            CASE ZORIGINATED
+                WHEN 0 then 'Incoming'
+                WHEN 1 then 'Outgoing'
+            END AS "Column6", 
+            CASE ZCALLTYPE
+                WHEN 0 then 'Third-Party App'
+                WHEN 1 then 'Phone Call'
+                WHEN 8 then 'FaceTime Video'
+                WHEN 16 then 'FaceTime Audio'
+                ELSE ZCALLTYPE
+            END AS "Column7", 
+            CASE ZANSWERED
+                WHEN 0 then 'Unanswered'
+                WHEN 1 then 'Answered'
+            END AS "Column8",
+            CASE
+                WHEN ZDURATION IS '0.0'
+                THEN "No Call Duration" 
+                WHEN ZDURATION > 0 THEN strftime('%H:%M:%S',(ZDURATION), 'unixepoch')  
+            END AS "Column9",
+            ZSERVICE_PROVIDER AS "Column10"
+            From "ZCALLRECORD"
+            LEFT OUTER JOIN Z_2REMOTEPARTICIPANTHANDLES ON Z_2REMOTEPARTICIPANTHANDLES.Z_2REMOTEPARTICIPANTCALLS IS ZCALLRECORD.Z_PK
+            LEFT OUTER JOIN ZHANDLE ON Z_2REMOTEPARTICIPANTHANDLES.Z_3REMOTEPARTICIPANTHANDLES IS ZHANDLE.Z_PK
+            GROUP BY Z_2REMOTEPARTICIPANTCALLS;</Query>
+        <Fragments>
+            <Fragment source="Column1" alias="Call Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column2" alias="Call End Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column3" alias="Display Name" datatype="String" category="None"/>
+            <Fragment source="Column4" alias="Identifier List" datatype="String" category="None"/>
+            <Fragment source="Column5" alias="Call Type" datatype="String" category="None"/>
+            <Fragment source="Column6" alias="Direction" datatype="String" category="None"/>
+            <Fragment source="Column7" alias="Call Description" datatype="String" category="None"/>
+            <Fragment source="Column8" alias="Call Status" datatype="String" category="None"/>
+            <Fragment source="Column9" alias="Call Duration" datatype="String" category="None"/>
+            <Fragment source="Column10" alias="Application Bundle ID" datatype="String" category="None"/>
+        </Fragments>
+    </Artifact>
+    <Artifact type="SqliteArtifact" name="Call History - Group Call v4" version="1.0">
+        <Source type="FileName">CallHistory.storedata</Source>
+        <Query>
+            Select 
+            datetime("ZCALLRECORD"."ZDATE" + 978307200, 'UNIXEPOCH') As "Column1", 
+            Case 
+                When "ZCALLRECORD"."ZDATE" = ("ZCALLRECORD"."ZDATE" + "ZCALLRECORD"."ZDURATION") Then NULL
+                Else datetime(("ZCALLRECORD"."ZDATE" + "ZCALLRECORD"."ZDURATION")+ 978307200, 'UNIXEPOCH') End As "Column2", 
+            CASE 
+            WHEN "ZCALLRECORD"."ZNAME" IS NULL THEN "No Display Name"
+            ELSE ZNAME 
+            END AS "Column3", 
+            GROUP_CONCAT(ZHANDLE.ZVALUE, ', ') AS "Column4",
+            CASE 
+               WHEN COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) = 1 
+               THEN 'Direct Call' 
+               WHEN COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) > 1 
+               THEN 'Group Call - ' || COUNT(z_2remoteparticipanthandles.z_2remoteparticipantcalls) || ' other parties'
+            END AS "Column5",
+            CASE ZORIGINATED
+                WHEN 0 then 'Incoming'
+                WHEN 1 then 'Outgoing'
+            END AS "Column6", 
+            CASE ZCALLTYPE
+                WHEN 0 then 'Third-Party App'
+                WHEN 1 then 'Phone Call'
+                WHEN 8 then 'FaceTime Video'
+                WHEN 16 then 'FaceTime Audio'
+                ELSE ZCALLTYPE
+            END AS "Column7", 
+            CASE ZANSWERED
+                WHEN 0 then 'Unanswered'
+                WHEN 1 then 'Answered'
+            END AS "Column8",
+            CASE
+                WHEN ZDURATION IS '0.0'
+                THEN "No Call Duration" 
+                WHEN ZDURATION > 0 THEN strftime('%H:%M:%S',(ZDURATION), 'unixepoch')  
+            END AS "Column9",
+            ZSERVICE_PROVIDER AS "Column10"
+            From "ZCALLRECORD"
+            LEFT OUTER JOIN Z_2REMOTEPARTICIPANTHANDLES ON Z_2REMOTEPARTICIPANTHANDLES.Z_2REMOTEPARTICIPANTCALLS IS ZCALLRECORD.Z_PK
+            LEFT OUTER JOIN ZHANDLE ON Z_2REMOTEPARTICIPANTHANDLES.Z_4REMOTEPARTICIPANTHANDLES IS ZHANDLE.Z_PK
+            GROUP BY Z_2REMOTEPARTICIPANTCALLS;</Query>
+        <Fragments>
+            <Fragment source="Column1" alias="Call Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column2" alias="Call End Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column3" alias="Display Name" datatype="String" category="None"/>
+            <Fragment source="Column4" alias="Identifier List" datatype="String" category="None"/>
+            <Fragment source="Column5" alias="Call Type" datatype="String" category="None"/>
+            <Fragment source="Column6" alias="Direction" datatype="String" category="None"/>
+            <Fragment source="Column7" alias="Call Description" datatype="String" category="None"/>
+            <Fragment source="Column8" alias="Call Status" datatype="String" category="None"/>
+            <Fragment source="Column9" alias="Call Duration" datatype="String" category="None"/>
+            <Fragment source="Column10" alias="Application Bundle ID" datatype="String" category="None"/>
+        </Fragments>
+    </Artifact>
+    <Artifact type="SqliteArtifact" name="Call History interactionC - Group Call" version="1.0">
+        <Source type="FileName">interactionC.db</Source>
+        <Query>
+            SELECT
+            datetime(ZINTERACTIONS.ZSTARTDATE + 978307200, 'UNIXEPOCH') AS "Column1",
+            datetime(ZINTERACTIONS.ZENDDATE + 978307200, 'UNIXEPOCH') AS "Column2",
+            GROUP_CONCAT(ZDISPLAYNAME, ', ') AS "Column3",
+            GROUP_CONCAT(ZIDENTIFIER, ', ') AS "Column4",
+            CASE
+                WHEN ZRECIPIENTCOUNT IS 1 THEN "Direct Call"
+                WHEN ZRECIPIENTCOUNT > 1 THEN 'Group Call - ' || COUNT(ZRECIPIENTCOUNT) || ' other parties'
+                ELSE ZRECIPIENTCOUNT
+            END AS "Column5",
+            CASE
+                WHEN ZDIRECTION IS 1 THEN "Outgoing"
+                WHEN ZDIRECTION IS 0 THEN "Incoming"
+            END AS "Column6",
+            strftime('%H:%M:%S',(ZENDDATE-ZSTARTDATE), 'unixepoch')  AS "Column7",
+            ZBUNDLEID AS "Column8"
+            FROM ZINTERACTIONS
+            LEFT OUTER JOIN Z_2INTERACTIONRECIPIENT on Z_2INTERACTIONRECIPIENT.Z_3INTERACTIONRECIPIENT is ZINTERACTIONS.Z_PK
+            LEFT OUTER JOIN ZCONTACTS on Z_2INTERACTIONRECIPIENT.Z_2RECIPIENTS is ZCONTACTS.Z_PK
+            WHERE ZBUNDLEID like "com.apple.InCallService" or ZBUNDLEID like "com.apple.facetime" or ZBUNDLEID like "com.apple.mobilephone"
+            GROUP BY Z_3INTERACTIONRECIPIENT;</Query>
+        <Fragments>
+            <Fragment source="Column1" alias="Call Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column2" alias="Call End Date/Time" datatype="DateTime" category="DateTime"/>
+            <Fragment source="Column3" alias="Display Name" datatype="String" category="None"/>
+            <Fragment source="Column4" alias="Identifier List" datatype="String" category="None"/>
+            <Fragment source="Column5" alias="Direct / Group Call" datatype="String" category="None"/>
+            <Fragment source="Column6" alias="Direction" datatype="String" category="None"/>
+            <Fragment source="Column7" alias="Interaction Duration" datatype="String" category="None"/>
+            <Fragment source="Column8" alias="Application Bundle ID" datatype="String" category="None"/>
+        </Fragments>
+    </Artifact>
+</Artifacts>
